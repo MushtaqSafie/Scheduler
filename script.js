@@ -1,18 +1,3 @@
-var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-console.log(currentDate);
-
-$("#currentDay").text(currentDate);
-
-var currentTime = moment().format("ha");
-
-
-console.log(currentTime.toUpperCase());
-
-// How to compaire arry order
-
-
-
-
 var taskList = [
   {
     currentHour: "9AM",
@@ -47,7 +32,7 @@ var taskList = [
     currentTask: "",
   },
   {
-    currentHour: "5PM",
+    currentHour: "5AM",
     currentTask: "",
   },
 ];
@@ -68,7 +53,7 @@ for (n = 0; n < taskList.length; n++) {
   newTh1.attr("scope", "row");
 
   var newTh2 = $("<th>");
-  newTh2.attr("class", "task-item");
+  newTh2.attr("class", "task-item color-"+taskList[n].currentHour);
   newTh2.html("<textarea class='description' rows='2' cols='45'>"+ localStorage.getItem(taskList[n].currentHour) +"</textarea>");
 
   var newTh3 = $("<th>");
@@ -80,6 +65,32 @@ for (n = 0; n < taskList.length; n++) {
     localStorage.setItem(setHour , setTask);
   });
   $("."+ taskList[n].currentHour).append(newTh1, newTh2, newTh3);
-
 }
 
+// Theme Color for Past, Present, Future
+var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+$("#currentDay").text(currentDate);
+
+var currentTime = moment().format("ha");
+
+var order = taskList.length;
+for (i = 0; i < taskList.length; i++) {
+  var currentHourArry = taskList[i].currentHour;
+  var hoursNow = currentTime.toUpperCase();
+
+  if (currentHourArry == hoursNow) {
+    order = i;
+    var current = "color-"+ taskList[i].currentHour;
+    $("."+current).addClass("present");
+  }
+}
+
+for (x = order-1; x > -1; x--) {
+  var before = "color-"+ taskList[x].currentHour;
+  $("."+before).addClass("past");
+}
+
+for (y = order+1; y < taskList.length; y++) {
+  var after = "color-"+ taskList[y].currentHour;
+  $("."+after).addClass("future");
+}
