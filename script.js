@@ -1,3 +1,18 @@
+var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+console.log(currentDate);
+
+$("#currentDay").text(currentDate);
+
+var currentTime = moment().format("ha");
+
+
+console.log(currentTime.toUpperCase());
+
+// How to compaire arry order
+
+
+
+
 var taskList = [
   {
     currentHour: "9AM",
@@ -67,3 +82,4 @@ for (n = 0; n < taskList.length; n++) {
   $("."+ taskList[n].currentHour).append(newTh1, newTh2, newTh3);
 
 }
+
