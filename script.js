@@ -1,21 +1,69 @@
+var taskList = [
+  {
+    currentHour: "9AM",
+    currentTask: "",
+  },
+  {
+    currentHour: "10AM",
+    currentTask: "",
+  },
+  {
+    currentHour: "11AM",
+    currentTask: "",
+  },
+  {
+    currentHour: "12PM",
+    currentTask: "",
+  },
+  {
+    currentHour: "1PM",
+    currentTask: "",
+  },
+  {
+    currentHour: "2PM",
+    currentTask: "",
+  },
+  {
+    currentHour: "3PM",
+    currentTask: "",
+  },
+  {
+    currentHour: "4PM",
+    currentTask: "",
+  },
+  {
+    currentHour: "5PM",
+    currentTask: "",
+  },
 
+];
 
+for (n = 0; n < taskList.length; n++) {
+  // localstorage the initial data
+  // localStorage.setItem(taskList[n].currentHour, taskList[n].currentTask);
 
-localStorage.setItem("9AM", "it is now 9 o clock");
-localStorage.setItem("10AM", "helo 10 o clock");
+  var newTr = $("<tr>");
+  newTr.attr("data-time", taskList[n].currentHour);
+  newTr.attr("class", taskList[n].currentHour);
+  $("#table-body").append(newTr);
 
-// Working Hour
-// 9 10 11 12 1 2 3 4 5 
+  var newTh1 = $("<th>");
+  newTh1.text(taskList[n].currentHour);
+  newTh1.attr("class", "hour");
+  newTh1.attr("scope", "row");
 
+  var newTh2 = $("<th>");
+  newTh2.attr("class", "task-item");
+  newTh2.html("<textarea class='description' rows='2' cols='45'>"+ localStorage.getItem(taskList[n].currentHour) +"</textarea>");
 
-for (i = 0; i < 9; i++) {
-  var dataSelector = $(".row-"+i).attr("data-time");
+  var newTh3 = $("<th>");
+  newTh3.attr("class", "saveBtn text-center");
+  newTh3.html("<i class='far fa-save'></i>");
+  newTh3.on("click", function() {
+    var setHour = $(this).parent().attr("data-time");
+    var setTask = $(this).siblings(".task-item").children().val().trim();
+    localStorage.setItem(setHour , setTask);
+  });
+  $("."+ taskList[n].currentHour).append(newTh1, newTh2, newTh3);
 
-  var getReminder = localStorage.getItem(dataSelector);
-  $(".reminder-" + i).text(getReminder);
 }
-
-$(".saveBtn").on("click", function() {
-  var setTime = $(this).parent().attr("data-time");
-  console.log(setTime);
-})
