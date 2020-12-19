@@ -35,12 +35,12 @@ var taskList = [
     currentHour: "5PM",
     currentTask: "",
   },
-
 ];
 
 for (n = 0; n < taskList.length; n++) {
-  // localstorage the initial data
-  // localStorage.setItem(taskList[n].currentHour, taskList[n].currentTask);
+  if (localStorage.getItem(taskList[n].currentHour) === null ) {
+    localStorage.setItem(taskList[n].currentHour, taskList[n].currentTask);
+  }
 
   var newTr = $("<tr>");
   newTr.attr("data-time", taskList[n].currentHour);
